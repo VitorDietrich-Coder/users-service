@@ -39,7 +39,7 @@ services:
     networks:
       - app-network
 
-  users-api:
+  users-microservice:
     build:
       context: .
       dockerfile: Dockerfile
