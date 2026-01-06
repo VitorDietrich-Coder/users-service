@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.Microservice.API", "Users.Microservice.API.csproj", "{42FD82F8-14C2-493C-B180-2C219B63DFF9}"
 EndProject
@@ -22,6 +22,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.Microservice.Infrastructure", "..\Users.Microservice.Infrastructure\Users.Microservice.Infrastructure.csproj", "{B12C19E7-0135-4C31-A906-361CF15128A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.Microservice.Tests", "..\Users.Microservice.Tests\Users.Microservice.Tests.csproj", "{11F84671-EA18-4258-B15F-6CAE373E5CB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7E79257E-D002-4016-A02F-23D881344D00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.Microservice.Shared", "..\Users.Microservice.Shared\Users.Microservice.Shared.csproj", "{F5C0F7B2-BB96-4A9A-A508-8190B614F306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{11F84671-EA18-4258-B15F-6CAE373E5CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11F84671-EA18-4258-B15F-6CAE373E5CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11F84671-EA18-4258-B15F-6CAE373E5CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C0F7B2-BB96-4A9A-A508-8190B614F306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C0F7B2-BB96-4A9A-A508-8190B614F306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C0F7B2-BB96-4A9A-A508-8190B614F306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C0F7B2-BB96-4A9A-A508-8190B614F306}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{BD1FE30E-1E22-4E3D-A184-352AD37ACF03} = {97E8A7A3-1EC8-4658-B68A-970F8900380C}
 		{B12C19E7-0135-4C31-A906-361CF15128A8} = {49BC53D5-C80F-4999-81F3-6F04C3070805}
 		{11F84671-EA18-4258-B15F-6CAE373E5CB7} = {6F8669B2-69CE-45A2-A803-03BCB73293E6}
+		{F5C0F7B2-BB96-4A9A-A508-8190B614F306} = {7E79257E-D002-4016-A02F-23D881344D00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C613245E-EE6E-4DA1-BD28-42113FD2631E}

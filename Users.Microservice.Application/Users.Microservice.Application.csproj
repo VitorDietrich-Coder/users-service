@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
     <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Users.Microservice.Domain\Users.Microservice.Domain.csproj" />
+    <ProjectReference Include="..\Users.Microservice.Infrastructure\Users.Microservice.Infrastructure.csproj" />
+    <ProjectReference Include="..\Users.Microservice.Shared\Users.Microservice.Shared.csproj" />
   </ItemGroup>
 
 </Project>
