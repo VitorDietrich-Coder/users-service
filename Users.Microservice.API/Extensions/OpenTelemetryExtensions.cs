@@ -9,8 +9,8 @@ namespace Users.Microservice.API.Extensions
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            var serviceName = configuration["Service:Name"] ?? "Users.Microservice";
-            var serviceVersion = "1.0.0";
+            var serviceName =
+                configuration["Service:Name"] ?? "users-microservice";
 
             services.AddOpenTelemetry()
                 .WithTracing(builder =>
@@ -18,9 +18,7 @@ namespace Users.Microservice.API.Extensions
                     builder
                         .SetResourceBuilder(
                             ResourceBuilder.CreateDefault()
-                                .AddService(
-                                    serviceName: serviceName,
-                                    serviceVersion: serviceVersion))
+                                .AddService(serviceName))
 
                         .AddAspNetCoreInstrumentation(options =>
                         {
@@ -29,17 +27,14 @@ namespace Users.Microservice.API.Extensions
 
                         .AddHttpClientInstrumentation()
 
-                        .AddEntityFrameworkCoreInstrumentation(options =>
-                        {
-                            options.SetDbStatementForText = true;
-                        })
+                        .AddEntityFrameworkCoreInstrumentation()
 
-                        .AddConsoleExporter()
-
-                        .AddJaegerExporter(jaegerOptions =>
+                    
+                        .AddOtlpExporter(opt =>
                         {
-                            jaegerOptions.AgentHost = configuration["Jaeger:Host"] ?? "localhost";
-                            jaegerOptions.AgentPort = int.Parse(configuration["Jaeger:Port"] ?? "6831");
+                            opt.Endpoint = new Uri(
+                                configuration["Jaeger:OtlpEndpoint"]
+                                ?? "http://jaeger:4317");
                         });
                 });
 

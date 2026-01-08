@@ -37,13 +37,13 @@ namespace Users.Microservice.API.Controllers
         }
 
         /// <summary>
-        /// Deactivates a user (logical delete).
+        /// Delete a user.
         /// </summary>
         [Authorize(Roles = "Admin")]
         [HttpPatch("{id:guid}/delete")]
         [SwaggerOperation(
-            Summary = "Deactivates a user.",
-            Description = "Marks the user as inactive. This is a logical delete."
+            Summary = "Delete a user.",
+            Description = "Marks the user as inactive. "
         )]
         [SwaggerResponseProfile("User.Delete")]
 
@@ -60,8 +60,8 @@ namespace Users.Microservice.API.Controllers
         [Authorize(Roles = "User,Admin")]
         [HttpPatch("{id:guid}/update")]
         [SwaggerOperation(
-            Summary = "Changes user password.",
-            Description = "Allows changing the user password."
+            Summary = "Update User",
+            Description = "Allows changing the user."
         )]
         [SwaggerResponseProfile("User.Update")]
 
@@ -111,10 +111,9 @@ namespace Users.Microservice.API.Controllers
         [HttpPost("create-admin")]
         [SwaggerResponseProfile("Admin.Register")]
 
-        public async Task<ActionResult<UserResponse>> CreateAdminAsync([FromBody] CreateAdminCommand command)
+        public async Task<ActionResult<Guid>> CreateAdminAsync([FromBody] CreateAdminCommand command)
         {
-            var id = await Mediator.Send(command);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id }, new { id });
+            return await Mediator.Send(command);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Amazon.SimpleNotificationService;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
 using Serilog;
@@ -38,6 +39,8 @@ builder.Services.AddSwaggerServices();
 
 builder.Services.AddGlobalCorsPolicy();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAWSService<IAmazonSimpleNotificationService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

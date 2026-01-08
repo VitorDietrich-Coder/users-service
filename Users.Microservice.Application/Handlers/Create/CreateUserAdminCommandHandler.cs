@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿ 
+using MediatR;
 using Users.Microservice.Application.Commands;
 using Users.Microservice.Domain.Entities.Enums;
 using Users.Microservice.Domain.Entities.Users;
 using Users.Microservice.Domain.Interfaces;
 using Users.Microservice.Infrastructure.Interfaces;
+using Users.Microservice.Infrastructure.Persistence;
 
 namespace Users.Microservice.Application.Handlers.Create
 {
@@ -13,15 +15,18 @@ namespace Users.Microservice.Application.Handlers.Create
         private readonly IUserRepository _userRepository;
         private readonly IEventStore _eventStore;
         private readonly IEventBus _eventBus;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CreateUserAdminCommandHandler(
             IUserRepository userRepository,
             IEventStore eventStore,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
             _eventStore = eventStore;
             _eventBus = eventBus;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Guid> Handle(
@@ -46,6 +51,8 @@ namespace Users.Microservice.Application.Handlers.Create
             user.ClearDomainEvents();
 
             await _userRepository.AddAsync(user);
+
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return user.Id;
         }
