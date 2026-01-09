@@ -1,38 +1,45 @@
 ﻿using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Users.Microservice.Domain.Events;
+ 
+using Users.Microservice.Infrastructure.Interfaces;
 
-namespace Users.Microservice.Infrastructure.Messaging
+namespace Users.Microservice.Infrastructure.Messaging;
+
+public class SnsEventBus : IEventBus
 {
-    public class SnsEventPublisher
+    private readonly IAmazonSimpleNotificationService _sns;
+    private readonly string _topicArn;
+
+    public SnsEventBus(
+        IAmazonSimpleNotificationService sns,
+        IConfiguration config)
     {
-        private readonly IAmazonSimpleNotificationService _sns;
-        private readonly string _topicArn;
+        _sns = sns;
+        _topicArn = config["AWS:SNS:UserCreatedTopicArn"];
+    }
 
-        public SnsEventPublisher(
-            IAmazonSimpleNotificationService sns,
-            IConfiguration config)
+    public async Task PublishAsync<TEvent>(TEvent @event, string queueName)
+        where TEvent : class
+    {
+        var message = JsonSerializer.Serialize(@event);
+
+        await _sns.PublishAsync(new PublishRequest
         {
-            _sns = sns;
-            _topicArn = config["AWS:SNS:UserCreatedTopicArn"];
-        }
-
-        public async Task PublishUserCreatedAsync(UserCreatedEvent evt)
-        {
-            var message = JsonSerializer.Serialize(evt);
-
-            await _sns.PublishAsync(new PublishRequest
+            TopicArn = _topicArn,
+            Message = message,
+            MessageAttributes =
             {
-                TopicArn = _topicArn,
-                Message = message
-            });
-        }
+                {
+                    "eventType",
+                    new MessageAttributeValue
+                    {
+                        DataType = "String",
+                        StringValue = typeof(TEvent).Name
+                    }
+                }
+            }
+        });
     }
 }

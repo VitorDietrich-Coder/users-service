@@ -53,10 +53,13 @@ builder.Services.AddCustomAuthentication(builder.Configuration);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEventStore, StoredEvents>();
-builder.Services.AddSingleton<IEventBus>(sp =>
-{
-     return new RabbitMqEventBus(builder.Configuration);
-});
+
+builder.Services.AddScoped<IEventBus, SnsEventBus>();
+
+//builder.Services.AddSingleton<IEventBus>(sp =>
+//{
+//     return new RabbitMqEventBus(builder.Configuration);
+//});
 var app = builder.Build();
 
 app.UseMiddleware<LoggingMiddleware>();
