@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Users.Microservice.Application.Commands;
 using Users.Microservice.Domain.Entities.Enums;
 using Users.Microservice.Domain.Entities.Users;
@@ -15,17 +16,20 @@ public class CreateUserCommandHandler
     private readonly IEventStore _eventStore;
     private readonly IEventBus _eventBus;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<CreateUserCommandHandler> _logger;
 
     public CreateUserCommandHandler(
         IUserRepository repository,
         IEventStore eventStore,
         IUnitOfWork unitOfWork,
-        IEventBus eventBus)
+        IEventBus eventBus,
+        ILogger<CreateUserCommandHandler> logger)
     {
         _repository = repository;
         _eventStore = eventStore;
         _eventBus = eventBus;
         _unitOfWork = unitOfWork;
+        _logger = logger;
     }
 
     public async Task<Guid> Handle(
@@ -43,16 +47,22 @@ public class CreateUserCommandHandler
 
         await _repository.AddAsync(user);
 
-
-        foreach (var domainEvent in user.DomainEvents)
+        try
         {
-            await _eventStore.SaveAsync(domainEvent);
-            await _eventBus.PublishAsync(domainEvent, "users.events");
-        }
-        await _unitOfWork.CommitAsync(cancellationToken);
+            foreach (var domainEvent in user.DomainEvents)
+            {
+                await _eventStore.SaveAsync(domainEvent);
+                await _eventBus.PublishAsync(domainEvent, "users.events");
+            }
+            await _unitOfWork.CommitAsync(cancellationToken);
+       
 
         user.ClearDomainEvents();
-
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError("Error of publish" + ex);
+        }
         return user.Id;
     }
 }
