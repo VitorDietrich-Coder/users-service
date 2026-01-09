@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Users.Microservice.Application.Commands;
 using Users.Microservice.Domain.Entities.Enums;
 using Users.Microservice.Domain.Entities.Users;
+using Users.Microservice.Domain.Events;
 using Users.Microservice.Domain.Interfaces;
 using Users.Microservice.Infrastructure.Interfaces;
 using Users.Microservice.Infrastructure.Persistence;
@@ -52,8 +53,13 @@ public class CreateUserCommandHandler
             foreach (var domainEvent in user.DomainEvents)
             {
                 await _eventStore.SaveAsync(domainEvent);
-                await _eventBus.PublishAsync(domainEvent, "users.events");
+
+                if (domainEvent is UserCreatedEvent userCreated)
+                {
+                    await _eventBus.PublishAsync(userCreated, "users.events");
+                }
             }
+
             await _unitOfWork.CommitAsync(cancellationToken);
        
 
