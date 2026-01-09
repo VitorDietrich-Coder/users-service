@@ -1,4 +1,4 @@
-# 🎮 FGC – FIAP Cloud Games
+# 🎮 FGC –  User Micro Service
 
 Repositório oficial do **FIAP Cloud Games (FGC)**, API backend desenvolvida em **.NET 8** como parte do **Tech Challenge FIAP – Fase 1** da FIAP.
 
@@ -43,11 +43,11 @@ dotnet restore
 Alterar no Arquivo AppsettingsDevelop.json
 
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost,1433;Database=FGC_Games;User Id=seu_usuario;Password=sua_senha_segura;TrustServerCertificate=True;"
+  "DefaultConnection": "Server=localhost,1433;Database=dbuser;User Id=seu_usuario;Password=sua_senha_segura;TrustServerCertificate=True;"
 }
-
+ 
 Para rodar o projeto execute:
-dotnet run --project ./src/FGC.Api
+dotnet run --project ./Users.Microservice.API
 
 ## Dados inseridos:
 
@@ -69,9 +69,6 @@ usernew@fiapgames.com (Usuário comum)
 
 Uma biblioteca para cada usuário
 
-####  🧾 LibraryGames
-
-Registros de jogos comprados, com preço pago e data de compra
 
 ## 🔐 Credenciais de Acesso
 
@@ -87,10 +84,6 @@ Email: adminnew@fiapgames.com
 
 Senha: 1GamesAdmin@
 
-##  📄 Documentação
-
-🛠️ Event Storming: https://miro.com/app/board/uXjVJXr1M14=/
-
 ##  🐳 Rodando a Aplicação com docker
 Rode no console:
 
@@ -99,7 +92,6 @@ cd FGC-Challenge
 
 docker compose up -d
 ```
-
 Com esse comando irá subir a API juntamente com o grafana e o prometheus, 
 tendo em vista que deixei um docker compose para empacotar e subir mais facil localmente.
 
