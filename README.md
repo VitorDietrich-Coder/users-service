@@ -10,10 +10,8 @@ O **FGC** simula uma **loja virtual de jogos digitais** com recursos completos d
 
 - 🔐 Login e autenticação com **JWT**
 - 🎮 Cadastro e listagem de jogos
-- 💸 Aplicação de **promoções**
 - 📚 Biblioteca personalizada para cada usuário
 - 📊 Precificação com histórico de compra
-
 ---
 
 ## ⚙️ Tecnologias Utilizadas
