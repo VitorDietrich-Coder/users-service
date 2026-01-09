@@ -29,7 +29,7 @@ public class SnsEventBus : IEventBus
         {
             TopicArn = _topicArn,
             Message = message,
-            MessageAttributes =
+            MessageAttributes = new Dictionary<string, MessageAttributeValue>
             {
                 {
                     "eventType",
