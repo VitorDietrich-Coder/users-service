@@ -77,7 +77,7 @@ Senha: 1GamesAdmin@
 Rode no console:
 
 ```bash
-cd FGC-Challenge
+cd users-service
 
 docker compose up -d
 ```
