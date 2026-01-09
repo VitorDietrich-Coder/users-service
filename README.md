@@ -61,15 +61,6 @@ usernew@fiapgames.com (Usuário comum)
 
 4 títulos com nome, categoria e preço
 
-####  🛍️ Promoções
-
-3 promoções com datas de validade
-
-####  📚 Bibliotecas
-
-Uma biblioteca para cada usuário
-
-
 ## 🔐 Credenciais de Acesso
 
 ####   👤 Usuário Comum
