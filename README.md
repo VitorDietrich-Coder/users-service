@@ -32,7 +32,7 @@ O **FGC** simula uma **loja virtual de jogos digitais** com recursos completos d
 ```bash
 git clone https://github.com/VitorDietrich-Coder/FGC-Fiap.git
 
-cd ../FGC-Challenge/src/fgc.api
+cd ../Users.Microservice.API
 
 dotnet restore
 ```
